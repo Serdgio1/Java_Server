@@ -41,3 +41,8 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+copilot.data.migration.ask2agent.xml
+gradle.xml
+misc.xml
+vcs.xml
