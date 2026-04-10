@@ -16,8 +16,7 @@ public class ResponseContext {
 
     public byte[] getResponseAsBytes() {
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-            byteArrayOutputStream.write(("HTTP/1.1" + status.getCode() + " " + status.getReasonPhrase() + "\r\n").getBytes());
-            //TODO: headers
+            byteArrayOutputStream.write(("HTTP/1.1 " + status.getCode() + " " + status.getReasonPhrase() + "\r\n").getBytes());            //TODO: headers
             byteArrayOutputStream.write("\r\n".getBytes());
             return byteArrayOutputStream.toByteArray();
         } catch (IOException e) {

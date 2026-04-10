@@ -24,7 +24,10 @@ public class RequestContext {
     public static RequestContext buildContext(BufferedReader reader) {
         try {
             var requestLine = reader.readLine();
+            System.out.println("[DEBUG] Raw request line: '" + requestLine + "'");
+            
             if (requestLine == null || requestLine.isBlank()) {
+                System.out.println("[DEBUG] Request line is null or blank - skipping headers");
                 return null;
             }
 

@@ -32,19 +32,19 @@ public enum HttpStatus {
     }
 
     public boolean is2xxSuccessful() {
-        return series == series.SUCCESFUL;
+        return series == Series.SUCCESFUL;
     }
 
     public boolean is3xxRedirection() {
-        return series == series.REDIRECTION;
+        return series == Series.REDIRECTION;
     }
 
     public boolean is4xxClientError() {
-        return series == series.CLIENT_ERROR;
+        return series == Series.CLIENT_ERROR;
     }
 
     public boolean is5xxServerError() {
-        return series == series.SERVER_ERROR;
+        return series == Series.SERVER_ERROR;
     }
 
     public boolean isError() {
