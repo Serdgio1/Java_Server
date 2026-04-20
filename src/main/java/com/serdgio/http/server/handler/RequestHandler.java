@@ -33,21 +33,18 @@ public class RequestHandler implements Runnable {
             }
 
             var os = clientSocket.getOutputStream();
-            var hadlerMethod = handlerMethodResolver.resolve(context);
+            var handlerMethod = handlerMethodResolver.resolve(context);
 
-            if (hadlerMethod == null) {
+            if (handlerMethod == null) {
                 os.write(ResponseContext.build(HttpStatus.NOT_FOUND).getResponseAsBytes());
                 os.flush();
             } else {
-                ResponseContext responseContext = hadlerMethod.invoke(context);
-                if (responseContext.getStatus().isError()) {
-                    os.write(responseContext.getResponseAsBytes());
-                    os.flush();
-                } else {
+                ResponseContext responseContext = handlerMethod.invoke(context);
+                if (!responseContext.getStatus().isError()) {
                     InterceptorHolder.getInstance().beforeSendRequest(context, responseContext);
-                    os.write(responseContext.getResponseAsBytes());
-                    os.flush();
                 }
+                os.write(responseContext.getResponseAsBytes());
+                os.flush();
             }
 
         } catch (IOException e) {
