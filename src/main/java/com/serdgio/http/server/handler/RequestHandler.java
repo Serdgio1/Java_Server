@@ -1,6 +1,7 @@
 package com.serdgio.http.server.handler;
 
 import com.serdgio.http.server.common.HttpStatus;
+import com.serdgio.http.server.interceptor.InterceptorHolder;
 import com.serdgio.http.server.request.RequestContext;
 import com.serdgio.http.server.response.ResponseContext;
 import com.serdgio.http.server.service.HandlerMethodResolver;
@@ -40,9 +41,10 @@ public class RequestHandler implements Runnable {
             } else {
                 ResponseContext responseContext = hadlerMethod.invoke(context);
                 if (responseContext.getStatus().isError()) {
-                    os.write(ResponseContext.build(responseContext.getStatus()).getResponseAsBytes());
+                    os.write(responseContext.getResponseAsBytes());
                     os.flush();
                 } else {
+                    InterceptorHolder.getInstance().beforeSendRequest(context, responseContext);
                     os.write(responseContext.getResponseAsBytes());
                     os.flush();
                 }

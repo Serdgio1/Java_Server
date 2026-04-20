@@ -69,4 +69,12 @@ public class ResponseContext {
     public void setBodyResponse(byte[] bodyResponse) {
         this.bodyResponse = bodyResponse;
     }
+
+    public byte[] getBodyResponse() {
+        return bodyResponse;
+    }
+
+    public HttpHeaders getHeaders() {
+        return headers;
+    }
 }
