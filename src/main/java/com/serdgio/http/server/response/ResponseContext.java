@@ -2,9 +2,11 @@ package com.serdgio.http.server.response;
 
 import com.serdgio.http.server.common.HttpHeaders;
 import com.serdgio.http.server.common.HttpStatus;
+import com.serdgio.http.server.exception.ResponseException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 public class ResponseContext {
     private HttpStatus status;
@@ -48,7 +50,7 @@ public class ResponseContext {
 
             return byteArrayOutputStream.toByteArray();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ResponseException(e);
         }
     }
 
@@ -57,7 +59,7 @@ public class ResponseContext {
     }
 
     public void setStatus(HttpStatus status) {
-        this.status = status;
+        this.status = Objects.requireNonNull(status);
     }
 
     public void setHeaders(HttpHeaders headers) {
